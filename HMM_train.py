@@ -57,12 +57,8 @@ class WordSegmentTrainer:
 
         return outpout_str
 
-    def _output_prob_matrixes(self):
+    def _output_prob_start(self):
         start_handler = file(self._prob_start, 'w')
-        emit_handler = file(self._prob_emit, 'w')
-        trans_handler = file(self._prob_trans,'w')
-
-        print("len(word_set) = %s " % (len(word_set)))
 
         for key in self._state_pi_count:
             '''
@@ -73,7 +69,12 @@ class WordSegmentTrainer:
             '''
             self._state_pi_count[key] = self._state_pi_count[key] * 1.0 / self._line_num
 
-        start_handler.write(self._state_pi_count)
+        start_handler.write(self._state_pi_count.__str__())
+
+        start_handler.close()
+
+    def _output_prob_trans(self):
+        trans_handler = file(self._prob_trans,'w')
 
         for src_state in self._state_transfer_count:
             src_state_count = self._state_count[src_state]
@@ -90,7 +91,12 @@ class WordSegmentTrainer:
 
                 self._state_transfer_count[src_state][one_dst_state] = one_dst_state_count / src_state_count
 
-        trans_handler.write(self._state_transfer_count)
+        trans_handler.write(self._state_transfer_count.__str__())
+
+        trans_handler.close()
+
+    def _output_prob_emit(self):
+        emit_handler = file(self._prob_emit, 'w')
 
         for src_state in self._state_emit_count:
             src_state_count = self._state_count[src_state]
@@ -107,11 +113,16 @@ class WordSegmentTrainer:
 
                 self._state_emit_count[src_state][one_dst_word] = one_dst_word_count / src_state_count
 
-        emit_handler.write(self._state_emit_count)
+        emit_handler.write(self._state_emit_count.__str__())
 
-        start_handler.close()
         emit_handler.close()
-        trans_handler.close()
+
+    def _output_prob_matrixes(self):
+        print("len(word_set) = %s " % (len(self._word_set)))
+
+        self._output_prob_start()
+        self._output_prob_trans()
+        self._output_prob_emit()
 
     def _get_line_words(self, line):
         word_list = []
