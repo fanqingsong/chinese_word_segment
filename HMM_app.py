@@ -6,9 +6,9 @@ import pdb
 
 class WordSegmentApp:
     def __init__(self):
-        self._prob_start = "prob_start.py"
-        self._prob_emit = "prob_emit.py"
-        self._prob_trans = "prob_trans.py"
+        self._prob_start = "./persistence/prob_start.py"
+        self._prob_emit = "./persistence/prob_emit.py"
+        self._prob_trans = "./persistence/prob_trans.py"
         self._state_list = ['B', 'M', 'E', 'S']
 
         self._load_models()

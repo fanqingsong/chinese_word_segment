@@ -7,9 +7,6 @@ import pdb
 
 class WordSegmentTrainer:
     def __init__(self):
-        self._state_M = 4
-        self._word_N = 0
-
         self._state_transfer_count = {}
         self._state_emit_count = {}
         self._state_count = {}
@@ -18,10 +15,10 @@ class WordSegmentTrainer:
         self._state_list = ['B','M','E','S']
         self._line_num = -1
 
-        self._corpus_file = "RenMinData.txt_utf8"
-        self._prob_start = "prob_start.py"
-        self._prob_emit = "prob_emit.py"
-        self._prob_trans = "prob_trans.py"
+        self._corpus_file = "./corpus/RenMinData.txt_utf8"
+        self._prob_start = "./persistence/prob_start.py"
+        self._prob_emit = "./persistence/prob_emit.py"
+        self._prob_trans = "./persistence/prob_trans.py"
 
         self._init_ds()
 
