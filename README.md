@@ -1,3 +1,4 @@
+
 #隐马尔科夫模型进行中文分词
 author : darrenan
 created at : 2014-03-17
